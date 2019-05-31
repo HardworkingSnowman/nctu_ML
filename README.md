@@ -44,7 +44,7 @@ ps.
 
 ### 開始 training(這部分由全部組員個別完成，5/30 之前)
 1. 所有組員自己選一種模型去做，選好之後在 FB 上說一下，免得跟別人撞到，另外在自己資料夾下的 README.md 寫上自己是用哪個模型。
-2. 把資料分成 trainging data 和 testing data 兩部分，可以先使用總目錄的 toy.zip 中的 toy.csv 來測試，如果嫌 data.csv 跑太久
+2. 把資料分成 trainging data 和 testing data 兩部分，可以先使用總目錄的 toydata.csv 來測試，如果嫌 data.csv 跑太久
 3. 使用自己的模型把 training data 完成，用 train 好的模型去預測 testing data
 4. 最後得到的結果至少要有 Confusion matrix、classification report
 * Confusion matrix : 

@@ -8,7 +8,7 @@ import time
 
 class Crawler():
   def __init__(self):
-    self.total_per_category = 50 # how many index per category (20 articles per an index)
+    self.total_per_category = 1 # how many index per category (20 articles per an index)
     self.category_urls = [] # all categories
     self.category_names = [] # all categories' name
     self.index_urls = []  # number of total_per_category of indexes
@@ -16,7 +16,7 @@ class Crawler():
     self.id = 1 # id's serial number
     self.error = 0
     # initialize the csv writer
-    self.writer = csv.writer(open('data.csv', 'w'))
+    self.writer = csv.writer(open('toy_word.csv', 'w'))
     self.writer.writerow(['id', 'category', 'words'])
   ##################################
   #             shared             #
@@ -47,7 +47,9 @@ class Crawler():
         print('category error\n')
         self.category_urls = []
         time.sleep(1)
-    for category_index in range(len(self.category_urls)-1, len(self.category_urls)):
+    for category_index in range(len(self.category_urls)):
+    # for category_index in range(len(self.category_urls)):
+      self.index_urls = []
       while True:
         try:
           self.get_index_urls(self.category_urls[category_index])
@@ -57,6 +59,7 @@ class Crawler():
           self.index_urls = []
           time.sleep(1)
       for index_url in self.index_urls:
+        self.article_urls = []
         while True:
           try:
             self.get_article_urls(index_url)
@@ -74,8 +77,8 @@ class Crawler():
             try:
               article = self.get_article(article_url)
               data = self.handle_article(article)
-              split_data = self.split_article(data)
-              self.write_into_csv(self.category_names[category_index], split_data)
+              # split_data = self.split_article(data)
+              self.write_into_csv(self.category_names[category_index], data)
               self.error = 0
               break
             except:
@@ -168,9 +171,9 @@ class Crawler():
     split_data = []
     for i in range(len(data)):
       split_data.append(data[i])
-      if i+1 < len(data):split_data.append(data[i:i+1+1])
-      if i+2 < len(data):split_data.append(data[i:i+2+1])
-      if i+3 < len(data):split_data.append(data[i:i+3+1])
+      #if i+1 < len(data):split_data.append(data[i:i+1+1])
+      #if i+2 < len(data):split_data.append(data[i:i+2+1])
+      #if i+3 < len(data):split_data.append(data[i:i+3+1])
     return split_data
   ##################################
   #              csv               #
