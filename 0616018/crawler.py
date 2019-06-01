@@ -5,19 +5,20 @@ from bs4 import BeautifulSoup as BS
 import re
 import csv
 import time
+import jieba
 
 class Crawler():
   def __init__(self):
-    self.total_per_category = 1 # how many index per category (20 articles per an index)
+    self.total_per_category = 50 # how many index per category (20 articles per an index)
     self.category_urls = [] # all categories
     self.category_names = [] # all categories' name
     self.index_urls = []  # number of total_per_category of indexes
     self.article_urls = [] # all articles
     self.id = 1 # id's serial number
     self.error = 0
+    self.count = 0
     # initialize the csv writer
-    self.writer = csv.writer(open('toy_word.csv', 'w'))
-    self.writer.writerow(['id', 'category', 'words'])
+    self.writer = ''
   ##################################
   #             shared             #
   ##################################
@@ -48,7 +49,11 @@ class Crawler():
         self.category_urls = []
         time.sleep(1)
     for category_index in range(len(self.category_urls)):
-    # for category_index in range(len(self.category_urls)):
+      if self.count % 5 == 0:
+        self.writer = csv.writer(open('data{0}_jieba.csv'.format(self.count//5), 'w'))
+        self.writer.writerow(['id', 'category', 'words'])
+      self.count += 1
+
       self.index_urls = []
       while True:
         try:
@@ -77,8 +82,8 @@ class Crawler():
             try:
               article = self.get_article(article_url)
               data = self.handle_article(article)
-              # split_data = self.split_article(data)
-              self.write_into_csv(self.category_names[category_index], data)
+              split_data = self.split_article(data)
+              self.write_into_csv(self.category_names[category_index], split_data)
               self.error = 0
               break
             except:
@@ -168,12 +173,7 @@ class Crawler():
   # correct
   #
   def split_article(self, data):
-    split_data = []
-    for i in range(len(data)):
-      split_data.append(data[i])
-      #if i+1 < len(data):split_data.append(data[i:i+1+1])
-      #if i+2 < len(data):split_data.append(data[i:i+2+1])
-      #if i+3 < len(data):split_data.append(data[i:i+3+1])
+    split_data = [' '.join(jieba.cut(s,cut_all = False)).split(' ') for s in [data]][0]
     return split_data
   ##################################
   #              csv               #
