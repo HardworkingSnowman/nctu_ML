@@ -50,7 +50,7 @@ class Crawler():
         time.sleep(1)
     for category_index in range(len(self.category_urls)):
       if self.count % 5 == 0:
-        self.writer = csv.writer(open('data{0}_jieba.csv'.format(self.count//5), 'w'))
+        self.writer = csv.writer(open('data{0}_char.csv'.format(self.count//5), 'w'))
         self.writer.writerow(['id', 'category', 'words'])
       self.count += 1
 
@@ -173,7 +173,10 @@ class Crawler():
   # correct
   #
   def split_article(self, data):
-    split_data = [' '.join(jieba.cut(s,cut_all = False)).split(' ') for s in [data]][0]
+    # split_data = [' '.join(jieba.cut(s,cut_all = False)).split(' ') for s in [data]][0]
+    split_data = []
+    for d in data:
+      split_data.append(d)
     return split_data
   ##################################
   #              csv               #
