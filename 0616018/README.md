@@ -20,6 +20,7 @@
 2. 利用 label encoder 和 CountVectorizer 對 文章分類和文章字詞做前置處理
 3. 把 trainging data 餵進去 Bayes GaussianNB 訓練，之後再預測 testing data
 4. 最後取得準確率和 confusion matrix
+![image](ConfusionMatrix.png)
 
 ## 實作心得
 這部分除了遇到在爬蟲中的 memory error 之外做得都還算順利，基本上就套用之前作業寫過的部分依樣畫葫蘆就完成了。
