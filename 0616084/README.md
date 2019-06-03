@@ -1,5 +1,5 @@
 # Data-Preprossessing
-![image](data_prepro.png)
+![image](data_prepro.jpeg)
 爬下來的資料共12萬多筆，超過github個別檔案容量限制，因此分裝成25個csv檔，使用pandas read_csv+tips from stackoverflow讀入分裝的資料。
 使用CountVectorizer統計字詞頻率，LabelEncoder將target編碼，於nn-model 再使用one_hot_encoding將target編碼。
 以test_size=0.3的比例，分成training data 86k 筆，testing data 37k 筆。
